@@ -110,6 +110,7 @@
     CalloutAnnotation *calloutAnnotation = (CalloutAnnotation *)annotation;
     
     ((CalloutAnnotationView *)annotationView).title = calloutAnnotation.title;
+    ((CalloutAnnotationView *)annotationView).delegate = self;
     [annotationView setNeedsDisplay];
     
     // Move the display position of MapView.
@@ -153,4 +154,9 @@
   }  
 }
 
+#pragma mark - CalloutAnnotationViewDelegate
+- (void)calloutButtonClicked:(NSString *)title
+{
+  NSLog(@"%@", title);
+}
 @end

@@ -7,10 +7,11 @@
 //
 
 #import "CalloutAnnotationView.h"
-
+#import "CalloutAnnotation.h"
 
 @implementation CalloutAnnotationView
 @synthesize title=title_;
+@synthesize delegate=delegate_;
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation
          reuseIdentifier:(NSString *)reuseIdentifier
@@ -27,6 +28,10 @@
     titleLabel_.textAlignment   = UITextAlignmentCenter;
     titleLabel_.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f];
     [self addSubview:titleLabel_];
+    
+    button_ = [[UIButton buttonWithType:UIButtonTypeInfoLight] retain];
+    [button_ addTarget:self action:@selector(calloutButtonClicked) forControlEvents:UIControlEventTouchDown];
+    [self addSubview:button_];
   }
   
   return self;
@@ -36,6 +41,7 @@
 {
   [title_ release], title_ = nil;
   [titleLabel_ release], titleLabel_ = nil;
+  [button_ release], button_ = nil;
   
   [super dealloc];
 }
@@ -44,5 +50,12 @@
 {
   [super drawRect:rect];
   titleLabel_.text = self.title;
+}
+
+#pragma mark - Button clicked
+- (void)calloutButtonClicked
+{
+  CalloutAnnotation *annotation = self.annotation;
+  [delegate_ calloutButtonClicked:(NSString *)annotation.title];
 }
 @end

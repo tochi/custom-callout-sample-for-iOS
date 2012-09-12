@@ -12,7 +12,8 @@
 #import "CalloutAnnotation.h"
 #import "CalloutAnnotationView.h"
 
-@interface CustomCalloutSampleViewController : UIViewController <MKMapViewDelegate>
+@interface CustomCalloutSampleViewController : UIViewController <MKMapViewDelegate,
+CalloutAnnotationViewDelegate>
 {
  @private
   MKMapView *mapView_;
